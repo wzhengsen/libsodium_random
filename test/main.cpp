@@ -9,7 +9,7 @@
 auto RandomGenerator = Sodium::RandomGenerator();
 
 template <class T>
-[[nodiscard]] constexpr T Rand(T min, T max)
+[[nodiscard]] T Rand(T min, T max)
 {
     assert(min <= max);
     if constexpr (std::is_integral<T>::value)
