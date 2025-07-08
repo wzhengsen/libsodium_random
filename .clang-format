@@ -1,0 +1,61 @@
+# See Clang docs: http://clang.llvm.org/docs/ClangFormatStyleOptions.html
+BasedOnStyle: Chromium
+
+# Allow double brackets such as std::vector<std::vector<int>>.
+Standard: Cpp11
+
+# Indent 4 spaces at a time.
+IndentWidth: 4
+
+# Keep lines under 150 columns long.
+ColumnLimit: 150
+
+SortIncludes: false
+
+# Always break before braces
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: false
+  AfterClass: false
+  AfterControlStatement: false
+  AfterEnum: false
+  AfterFunction: false
+  AfterNamespace: false
+  AfterStruct: false
+  AfterUnion: false
+  BeforeCatch: true
+  BeforeElse: true
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+
+  # Keeps extern "C" blocks unindented.
+  AfterExternBlock: false
+
+# Indent case labels.
+IndentCaseLabels: false
+
+# Left-align pointers and references
+PointerAlignment: Left
+
+# ANGLE likes to align things as much as possible.
+AlignOperands: true
+AlignConsecutiveAssignments: true
+
+# Use 0 space negative offset for access modifiers
+AccessModifierOffset: -4
+
+# TODO(jmadill): Decide if we want this on. Doesn't have an "all or none" mode.
+AllowShortCaseLabelsOnASingleLine: false
+
+# Useful for spacing out functions in classes
+KeepEmptyLinesAtTheStartOfBlocks: true
+
+# Indent nested PP directives.
+IndentPPDirectives: None
+
+# Include blocks style
+IncludeBlocks: Preserve
+UseTab: Never
+BreakConstructorInitializers: BeforeComma

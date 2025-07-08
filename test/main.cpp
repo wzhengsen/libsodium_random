@@ -3,34 +3,50 @@
 #include <random>
 #include <cassert>
 #include <concepts>
-#include <iostream>
 #include <iomanip>
-
-auto RandomGenerator = Sodium::RandomGenerator();
+#include <iostream>
+#include <fstream>
+#include <string>
 
 template <class T>
-[[nodiscard]] T Rand(T min, T max)
-{
+[[nodiscard]] T Rand(auto&& gen, T min, T max) {
     assert(min <= max);
-    if constexpr (std::is_integral<T>::value)
-    {
-        return std::uniform_int_distribution<T>(min, max)(RandomGenerator);
+    if constexpr (std::is_integral<T>::value) {
+        return std::uniform_int_distribution<T>(min, max)(gen);
     }
-    else
-    {
-        return std::uniform_real_distribution<T>(min, max)(RandomGenerator);
+    else {
+        return std::uniform_real_distribution<T>(min, max)(gen);
+    }
+}
+
+static void WriteFileRNG(std::string_view file) {
+    if (auto f = std::ofstream(file.data())) {
+        std::string s = "";
+        s.reserve(30'000'000);
+
+        auto g = Sodium::RandomGenerator();
+        for (uint64_t i = 0; i < 3'000'000; ++i) {
+            s += std::to_string(Rand(g, 0u, (2u << 32u) - 1u));
+            if (i != 3'000'000 - 1) {
+                s += ',';
+            }
+        }
+
+        f << s;
     }
 }
 
 int main() {
-    constexpr uint64_t TryTimes = 100'000'000;
+    std::cout << "-- Start benchmarking --" << std::endl;
 
-    const auto minRange = Rand(1u, 50u);
-    const auto maxRange = Rand(minRange + 10u, minRange + 20u);
+    constexpr uint64_t TryTimes = 100'000'000;
+    auto RandomGenerator        = Sodium::RandomGenerator();
+    const auto minRange         = Rand(RandomGenerator, 1u, 50u);
+    const auto maxRange         = Rand(RandomGenerator, minRange + 10u, minRange + 20u);
 
     auto times = std::vector<uint64_t>(maxRange - minRange + 1u);
     for (uint64_t i = 0; i < TryTimes; ++i) {
-        const auto rand = Rand(minRange, maxRange);
+        const auto rand = Rand(RandomGenerator, minRange, maxRange);
         assert(rand >= minRange && rand <= maxRange);
 
         const auto idx = rand - minRange;
@@ -47,6 +63,14 @@ int main() {
         const auto probability = double(times[i]) / TryTimes * 100.;
         std::cout << i + minRange << " -> " << times[i] << " times," << std::setprecision(4) << probability << "% probability." << std::endl;
     }
+
+    std::cout << "-- End benchmarking --" << std::endl;
+
+    std::cout << "-- Start rng file --" << std::endl;
+    WriteFileRNG("rng1.csv");
+    WriteFileRNG("rng2.csv");
+    WriteFileRNG("rng3.csv");
+    std::cout << "-- End rng file --" << std::endl;
 
     return 0;
 }

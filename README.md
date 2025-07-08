@@ -21,24 +21,24 @@ To use this random number generator in a more concise manner without introducing
 
 ```c++
 // The unpredictability of random numbers can be guaranteed without using random seeds.
-auto RandomGenerator = Sodium::RandomGenerator();
+
 
 template <class T>
-[[nodiscard]] T Rand(T min, T max) {
+[[nodiscard]] T Rand(auto&& g, T min, T max) {
     assert(min <= max);
-    if constexpr (std::is_integral<T>::value)
-    {
-        return std::uniform_int_distribution<T>(min, max)(RandomGenerator);
+    if constexpr (std::is_integral<T>::value) {
+        return std::uniform_int_distribution<T>(min, max)(g);
     }
-    else
-    {
-        return std::uniform_real_distribution<T>(min, max)(RandomGenerator);
+    else {
+        return std::uniform_real_distribution<T>(min, max)(g);
     }
 }
 
 int main() {
-    std::cout << Rand(1, 100) << std::endl;
-    std::cout << Rand(0.5f, 2.5f) << std::endl;
+    auto RandomGenerator = Sodium::RandomGenerator();
+
+    std::cout << Rand(RandomGenerator, 1, 100) << std::endl;
+    std::cout << Rand(RandomGenerator, 0.5f, 2.5f) << std::endl;
 
     return 0;
 }
