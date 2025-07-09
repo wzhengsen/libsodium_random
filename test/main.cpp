@@ -26,7 +26,7 @@ static void WriteFileRNG(std::string_view file) {
 
         auto g = Sodium::RandomGenerator();
         for (uint64_t i = 0; i < 3'000'000; ++i) {
-            s += std::to_string(Rand(g, 0u, (2u << 32u) - 1u));
+            s += std::to_string(Rand(g, 0u, std::numeric_limits<uint32_t>::max()));
             if (i != 3'000'000 - 1) {
                 s += ',';
             }

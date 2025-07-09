@@ -12,6 +12,8 @@ set(tNameProj ${tName}_project)
 
 project(${tNameProj})
 
+include(CTest)
+
 # sodium 部分。
 set(${tName}_src_path ${CMAKE_CURRENT_LIST_DIR}/libsodium/src/libsodium)
 set(${tName}_src
@@ -69,7 +71,13 @@ if (${PROJECT_IS_TOP_LEVEL})
     )
 
     add_executable(${tNameTest} ${${tNameTest}_src})
-    add_executable(sodium::${tNameTest} ALIAS ${tNameTest})
+
+    enable_testing()
+    add_test(
+        NAME ${tNameTest}
+        COMMAND $<TARGET_FILE:${tNameTest}>
+        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+    )
 
     if (MSVC)
         target_compile_options(${tNameTest} PRIVATE /utf-8)

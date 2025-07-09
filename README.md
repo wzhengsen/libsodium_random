@@ -43,3 +43,12 @@ int main() {
     return 0;
 }
 ```
+
+# How to build / run / test
+```bash
+git clone https://github.com/wzhengsen/libsodium_random.git --recurse-submodules --recursive
+
+cd libsodium_random && mkdir build && cd build && cmake .. && cmake --build .
+
+ctest --test-dir .
+```
