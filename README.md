@@ -47,6 +47,11 @@ int main() {
 }
 ```
 
+# About RNG data file
+
+A set of pre-generated rng.zip files is provided in the root directory.
+If you need to regenerate rng data for verification, go to: [How to build and run and test](#how-to-build-and-run-and-test)
+
 # How to install git / cmake / other dependencies
 
 Git: https://git-scm.com/downloads
@@ -59,7 +64,7 @@ Linux: Clang or GCC
 
 Apple: XCode
 
-# How to build / run / test
+# How to build and run and test
 
 Simply copy and execute the following command to complete the build and test generation in one go:
 
