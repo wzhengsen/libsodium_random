@@ -64,11 +64,7 @@ Apple: XCode
 Simply copy and execute the following command to complete the build and test generation in one go:
 
 ```bash
-git clone https://github.com/wzhengsen/libsodium_random.git --recurse-submodules --recursive
-
-cd libsodium_random && mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && cmake --build . --config Release
-
-ctest --test-dir . -C Release -VV
+git clone https://github.com/wzhengsen/libsodium_random.git --recurse-submodules --recursive && cd libsodium_random && mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && cmake --build . --config Release && ctest --test-dir . -C Release -VV
 ```
 
 Now, the random number test results should be located in the **rng1.csv / rng2.csv / rng3.csv** files under the sodium_random root directory.
