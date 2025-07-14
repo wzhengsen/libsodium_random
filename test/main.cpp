@@ -1,23 +1,11 @@
 #include "sodium_random.hpp"
 
-#include <random>
 #include <cassert>
 #include <concepts>
 #include <iomanip>
 #include <iostream>
 #include <fstream>
 #include <string>
-
-template <class T>
-[[nodiscard]] T Rand(auto&& gen, T min, T max) {
-    assert(min <= max);
-    if constexpr (std::is_integral<T>::value) {
-        return std::uniform_int_distribution<T>(min, max)(gen);
-    }
-    else {
-        return std::uniform_real_distribution<T>(min, max)(gen);
-    }
-}
 
 static void WriteFileRNG(std::string_view file) {
     if (auto f = std::ofstream(file.data())) {

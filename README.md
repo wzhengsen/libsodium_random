@@ -66,7 +66,13 @@ Apple: XCode
 
 # How to build and run and test
 
-Simply copy and execute the following command to complete the build and test generation in one go:
+If you already have the source code, use the following command to complete the build and test generation in one go (At this point, make sure you are in the libsodium_random directory):
+
+```bash
+mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && cmake --build . --config Release && ctest --test-dir . -C Release -VV
+```
+
+If you don't have the source code yet, use the following command to complete the build and generate rng files in one go:
 
 ```bash
 git clone https://github.com/wzhengsen/libsodium_random.git --recurse-submodules --recursive && cd libsodium_random && mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && cmake --build . --config Release && ctest --test-dir . -C Release -VV
