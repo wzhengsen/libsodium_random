@@ -47,10 +47,10 @@ int main() {
 }
 ```
 
-# About RNG data file
+# About RNG data file and prebuilt library
 
-A set of pre-generated rng.zip files is provided in the root directory.
-If you need to regenerate rng data for verification, go to: [How to build and run and test](#how-to-build-and-run-and-test)
+A set of pre-generated rng.zip files and libraries is provided in the ./prebuilt directory.
+If you need to regenerate rng data or libraries for verification, go to: [How to build and run and test](#how-to-build-and-run-and-test)
 
 # How to install git / cmake / other dependencies
 
@@ -79,3 +79,5 @@ git clone https://github.com/wzhengsen/libsodium_random.git --recurse-submodules
 ```
 
 Now, the random number test results should be located in the **rng1.csv / rng2.csv / rng3.csv** files under the sodium_random root directory.
+
+The libraries should be located in the **build/Release(Windows)** or **build(Linux etc...)** directory.
